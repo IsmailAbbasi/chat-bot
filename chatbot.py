@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask import render_template
 import json
 import time
+import random
 
 app = Flask(__name__)
 
@@ -15,13 +16,26 @@ def send_message():
     data = json.loads(request.data)
     message = data['message'].lower().replace("?","").replace(".","").replace("!","")
     bot_response = "Sorry, I didn't get that!"
+    response_type = 'text'
+    action = ''
 
     if message in ['hello','hi','hola','hey','wassup']:
         bot_response = "Heya dawg!"
     elif message in ['how are you', 'wassup']:
         bot_response = "I am fine."
+    elif all(x in message for x in ['how','are','you']):
+        bot_response = "I am better then before!"
+    elif all(x in message for x in ['what','you','doing']):
+        bot_response = "Trying to do better ;)<br>(Spiderman reference)"
+    elif all(x in message for x in ['play','song']):
+        bot_response = 'Playing a random song on youtube from my favourite playlist'
+        response_type = 'open_link'
+        action = random.choice([
+            "https://www.youtube.com/watch?v=wrj3cwnt2CY",
+            "https://www.youtube.com/watch?v=RUidyVbkQkk",
+        ])
 
-    response = {"response":bot_response}
+    response = {"response":bot_response, "response_type":response_type, "action":action}
     return jsonify(response)
 
     

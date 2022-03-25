@@ -44,6 +44,9 @@ function send_message(event){
         const bot_message_html = `<div class='chat-message message-bot'>${data.response}</div>`;
         chat_area.innerHTML += bot_message_html;
         chat_area.scrollTop = chat_area.scrollHeight;
+        if (data.response_type == 'open_link'){
+          window.open(data.action);
+        }
         console.log('Success:', data);
       })
       .catch((error) => {

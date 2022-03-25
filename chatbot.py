@@ -3,6 +3,7 @@ from flask import render_template
 import json
 import time
 import random
+import wikipedia
 
 app = Flask(__name__)
 
@@ -34,6 +35,12 @@ def send_message():
             "https://www.youtube.com/watch?v=wrj3cwnt2CY",
             "https://www.youtube.com/watch?v=RUidyVbkQkk",
         ])
+    elif message.startswith("define") or message.startswith("what is") or message.startswith("tell me about") or message.startswith("who is"):
+        topic = message.replace("define", "").replace("what is", "").replace("tell me about","").replace("who is", "")
+        try:
+            bot_response = wikipedia.summary(topic)
+        except:
+            bot_response = "Sorry, I don't know anything about " + topic + "!"
 
     response = {"response":bot_response, "response_type":response_type, "action":action}
     return jsonify(response)

@@ -19,7 +19,7 @@ function send_message(event){
 
     const user_message_html = `<div class='chat-message message-user'>${message}</div>`;
     chat_area.innerHTML += user_message_html;
-    chat_area.scrollTop = chat_area.scrollHeight;
+    
     input_box.value = '';
     chat_area.innerHTML += `<div class="bot-typing" >
     <lord-icon
@@ -29,6 +29,8 @@ function send_message(event){
     </lord-icon>
     <i style="opacity:0.7;position:relative;top:2px;font-size:13px;">&nbsp;Ultron is typing...</i>
 </div>`;
+
+    chat_area.scrollTop = chat_area.scrollHeight;
 
     if (message == 'clear all'){
       clear_messages();

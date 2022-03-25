@@ -2,6 +2,7 @@ const send_btn = document.getElementById("send-btn");
 const input_box = document.getElementById("chat-input");
 const chat_area = document.querySelector(".chat-main");
 const bot_typing = document.querySelector(".bot-typing");
+let selected_language = "english";
 
 send_btn.addEventListener('click', send_message)
 input_box.addEventListener('keypress', function(e){
@@ -38,7 +39,7 @@ function send_message(event){
     }
     fetch('/send-msg/', {
         method: 'POST', // or 'PUT'
-        body: JSON.stringify({"message":message}),
+        body: JSON.stringify({"message":message, "selected_language":selected_language}),
       })
       .then(response => response.json())
       .then(data => {
@@ -48,6 +49,9 @@ function send_message(event){
         chat_area.scrollTop = chat_area.scrollHeight;
         if (data.response_type == 'open_link'){
           window.open(data.action);
+        }
+        if (data.response_type == 'change_langauge'){
+          selected_language = data.action;
         }
         console.log('Success:', data);
       })

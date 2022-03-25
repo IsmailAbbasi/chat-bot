@@ -4,6 +4,7 @@ import json
 import time
 import random
 import wikipedia
+from deep_translator import GoogleTranslator
 
 app = Flask(__name__)
 
@@ -19,9 +20,12 @@ def send_message():
     bot_response = "Sorry, I didn't get that!"
     response_type = 'text'
     action = ''
+    current_language = data['selected_language']
 
     if message in ['hello','hi','hola','hey','wassup']:
         bot_response = "Heya dawg!"
+    elif message in ['help']:
+        bot_response = "Hey i can do multiple tasks : <br> I can play a song for you <br> I can make you laugh <br> I can Talk to you in any language you like <br> I can tell about you anything you ask for . <br> I can give you movie suggestions."
     elif message in ['how are you', 'wassup']:
         bot_response = "I am fine."
     elif all(x in message for x in 'who made you'.split(" ")) or all(x in message for x in 'how you born'.split(" ")):
@@ -43,6 +47,16 @@ def send_message():
             bot_response = wikipedia.summary(topic)
         except:
             bot_response = "Sorry, I don't know anything about " + topic + "!"
+    elif message.startswith("talk to me in"):
+        language = message.replace("talk to me in ", "")
+        response_type = 'change_langauge'
+        action = language
+        current_language = language
+        bot_response = "Ok! From now on I will talk to you in " + language.title() + "."
+
+    if current_language != 'english':
+        translator = GoogleTranslator(source='auto', target=current_language)
+        bot_response = translator.translate(bot_response)
 
     response = {"response":bot_response, "response_type":response_type, "action":action}
     return jsonify(response)

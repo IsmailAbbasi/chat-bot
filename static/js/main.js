@@ -1,6 +1,7 @@
 const send_btn = document.getElementById("send-btn");
 const input_box = document.getElementById("chat-input");
 const chat_area = document.querySelector(".chat-main");
+const bot_typing = document.querySelector(".bot-typing");
 
 send_btn.addEventListener('click', send_message)
 input_box.addEventListener('keypress', function(e){
@@ -18,7 +19,16 @@ function send_message(event){
 
     const user_message_html = `<div class='chat-message message-user'>${message}</div>`;
     chat_area.innerHTML += user_message_html;
+    chat_area.scrollTop = chat_area.scrollHeight;
     input_box.value = '';
+    chat_area.innerHTML += `<div class="bot-typing" >
+    <lord-icon
+        src="https://cdn.lordicon.com/dxjqoygy.json"
+        trigger="loop"
+        style="width:40px;height:40px">
+    </lord-icon>
+    <i style="opacity:0.7;position:relative;top:2px;font-size:13px;">&nbsp;Ultron is typing...</i>
+</div>`;
 
     if (message == 'clear all'){
       clear_messages();
@@ -30,8 +40,10 @@ function send_message(event){
       })
       .then(response => response.json())
       .then(data => {
+        document.querySelectorAll(".bot-typing").forEach(el => el.remove());
         const bot_message_html = `<div class='chat-message message-bot'>${data.response}</div>`;
         chat_area.innerHTML += bot_message_html;
+        chat_area.scrollTop = chat_area.scrollHeight;
         console.log('Success:', data);
       })
       .catch((error) => {

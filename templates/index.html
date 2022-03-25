@@ -17,7 +17,10 @@
     <div class="chat-box shadow-sm mx-auto">
 
         <div class="chat-header">
-            <i class="bi bi-robot"></i>&nbsp; Chat with Ultron
+            <i class="bi bi-robot ultron-icon"></i>&nbsp; Chat with Ultron
+            <div class="clear-all-btn">
+                <a href="#!" class="btn btn-light" onclick="clear_messages();">Clear All</a>
+            </div>
         </div>
 
         <div class="chat-main">
@@ -29,8 +32,10 @@
 
         <div class="chat-input-box px-3 pt-3">
             <div class="input-group mb-3">
+                
                 <input type="text" id="chat-input" class="form-control" placeholder="Type your message" aria-label="Recipient's username" aria-describedby="send-btn">
-                <button class="btn btn-primary" type="button" id="send-btn">Send</button>
+               
+                <button class="btn btn-primary" type="button" id="send-btn"> <i class="bi bi-send"></i> Send</button>
             </div>              
         </div>
 

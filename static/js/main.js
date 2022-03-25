@@ -11,10 +11,19 @@ input_box.addEventListener('keypress', function(e){
 
 function send_message(event){
     const message = input_box.value;
+
+    if (message == ''){
+      return;
+    }
+
     const user_message_html = `<div class='chat-message message-user'>${message}</div>`;
     chat_area.innerHTML += user_message_html;
     input_box.value = '';
 
+    if (message == 'clear all'){
+      clear_messages();
+      return;
+    }
     fetch('/send-msg/', {
         method: 'POST', // or 'PUT'
         body: JSON.stringify({"message":message}),
@@ -28,4 +37,8 @@ function send_message(event){
       .catch((error) => {
         console.error('Error:', error);
       });
+}
+
+function clear_messages(){
+  chat_area.innerHTML = '';
 }

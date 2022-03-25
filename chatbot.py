@@ -37,6 +37,10 @@ def send_message():
     #     bot_response = "I am better then before!"
     elif all(x in message for x in ['what','you','doing']) or all(x in message for x in ['how','you','doing']):
         bot_response = "Trying to do better ;)<br>(Spiderman reference)"
+    elif all(x in message for x in ['who','are','you']) or all(x in message for x in ['how','you','doing']):
+        bot_response = "I am Ultron chat bot made by Iron man <br> Not by Tony Stark <br> by Ismail Abbasi"
+    elif all(x in message for x in ['who','is','ismail']) or all(x in message for x in ['tell','about','ismail']):
+        bot_response = "Ismail Abbasi is a studying CS from Jamia hamdard delhi you can find more about "
     elif all(x in message for x in ['play','song']):
         bot_response = 'Playing a random song on youtube from my favourite playlist'
         response_type = 'open_link'

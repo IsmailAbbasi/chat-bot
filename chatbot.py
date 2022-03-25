@@ -23,7 +23,9 @@ def send_message():
     current_language = data['selected_language']
 
     if message in ['hello','hi','hola','hey','wassup']:
-        bot_response = "Heya dawg!"
+        bot_response = random.choice([
+            'Hello','Hola','Wassup Human'
+        ])
     elif message in ['help']:
         bot_response = "Hey i can do multiple tasks : <br> I can play a song for you <br> I can make you laugh <br> I can Talk to you in any language you like <br> I can tell about you anything you ask for . <br> I can give you movie suggestions."
     elif message in ['how are you', 'wassup']:

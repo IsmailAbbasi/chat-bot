@@ -24,6 +24,8 @@ def send_message():
         bot_response = "Heya dawg!"
     elif message in ['how are you', 'wassup']:
         bot_response = "I am fine."
+    elif all(x in message for x in 'who made you'.split(" ")) or all(x in message for x in 'how you born'.split(" ")):
+        bot_response = "I was sent to earth by gods of the middle earth <br>.<br>.<br>Abey saale! Kisi Developer ne hi banaya hoga na 😠 <br> :P <br>"
     elif all(x in message for x in ['how','are','you']):
         bot_response = "I am better then before!"
     elif all(x in message for x in ['what','you','doing']):
